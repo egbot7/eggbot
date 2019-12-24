@@ -1,0 +1,27 @@
+---
+# SeeAlso: https://github.com/mvdan/github-actions-golang
+name: CI
+on:
+  pull_request: ~
+  push:
+    branches:
+      # These are the branches that we want CI to run on direct pushes.
+      # All other changes should go through PRs.
+      - master
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        go-version: [1.12.x, 1.13.x]
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: ${{ matrix.go-version }}
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Test
+        run: go test ./... -v -cover -race
