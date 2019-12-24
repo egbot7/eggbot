@@ -1,0 +1,12 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: egbot7
+commonLabels:
+  owner: egbot7
+  app: eggbot
+resources:
+  -cluster-init.yaml
+  -cockroachdb-statefulset.yaml
+  -eggbot-deployment.yaml
+  -kustomization.yaml

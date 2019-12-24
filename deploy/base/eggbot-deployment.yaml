@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eggbot
+spec:
+  selector:
+    matchLabels:
+      app: eggbot
+  template:
+    metadata:
+      labels:
+        app: eggbot
+    spec:
+      containers:
+        - name: eggbot
+          image: egbot7/eggbot:0.0.1
+          env:
+            - configMapRef:
+              name: eggbot-config

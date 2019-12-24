@@ -1,0 +1,19 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eggbot
+spec:
+  selector:
+    matchLabels:
+      app: eggbot
+  template:
+    metadata:
+      labels:
+        app: eggbot
+    spec:
+      containers:
+        - name: eggbot
+          resources:
+            limits:
+              cpu: 7000m
