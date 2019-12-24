@@ -1,11 +1,10 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"os"
 
-	"github.com/dghubble/go-twitter/twitter"
-	"github.com/dghubble/oauth1"
+	"github.com/ChimeraCoder/anaconda"
 )
 
 var (
@@ -16,22 +15,7 @@ var (
 )
 
 func main() {
-
-	config := oauth1.NewConfig(consumerKey, consumerSecret)
-	token := oauth1.NewToken(accessToken, accessSecret)
-	// http.Client will automatically authorize Requests
-	httpClient := config.Client(oauth1.NoContext, token)
-
-	// Twitter client
-	client := twitter.NewClient(httpClient)
-
-	//
-	tweets, resp, err := client.Timelines.HomeTimeline(&twitter.HomeTimelineParams{
-		Count: 20,
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Print(tweets)
-	log.Print(resp)
+	api := anaconda.NewTwitterApiWithCredentials(accessToken, accessSecret, consumerKey, consumerSecret)
+	homeTimelineResult, _ := api.GetHomeTimeline(nil)
+	fmt.Println(homeTimelineResult)
 }
